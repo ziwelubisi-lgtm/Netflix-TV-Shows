@@ -1,1 +1,91 @@
+select * from `workspace`.`default`.`tv_shows_netflix` limit 100;
+
+
+--- TOP 5 Shows by IMDB Rating ---
+SELECT * 
+FROM workspace.default.tv_shows_netflix 
+ORDER BY IMDB_Rating DESC
+LIMIT 5;
+
+
+--- Movies Between 2008 and 2016 --- 26 Movies
+SELECT * 
+FROM workspace.default.tv_shows_netflix
+WHERE Year BETWEEN 2008 AND 2016 
+ORDER BY Year 
+DESC;
+ 
+
+--- Earliest Year in Movie Set --- 1989 
+SELECT MIN(YEAR) AS Olderst_Movie_Year 
+FROM workspace.default.tv_shows_netflix ;
+
+
+--- Latest Year in Movie Set --- 2019 
+SELECT Max(YEAR) AS Newest_Movie_Year
+FROM workspace.default.tv_shows_netflix ;
+
+
+--- Number of different titles = 50 Different Movies ---
+SELECT COUNT(DISTINCT Titles) AS Number_of_Movies
+FROM workspace.default.tv_shows_netflix;
+
+
+--- Ratings below 18+ --- 0nly 4 Shows 
+SELECT * 
+FROM workspace.default.tv_shows_netflix 
+WHERE Rating > '18+';
+
+--- Ratings above 18+ --- 19 Shows Shows 
+SELECT * 
+FROM workspace.default.tv_shows_netflix 
+WHERE Rating < '18+' ;
+
+
+--- Ratings that are 18+ --- 27 Shows 
+SELECT * 
+FROM workspace.default.tv_shows_netflix 
+WHERE Rating ='18+' ;
+
+
+--- Year Buckets ---
+SELECT *,
+CASE
+WHEN Year BETWEEN 1989 AND 1999 THEN 'Before 2000s'
+WHEN year BETWEEN 2000 AND 2019 THEN 'Within 2000s'
+ELSE 'Very Recent'
+END AS Year_Buckets 
+FROM workspace.default.tv_shows_netflix ;
+
+
+--- AVG Rating --- 
+SELECT Netflix, AVG(IMDB_Rating) AS Avg_Rating
+FROM workspace.default.tv_shows_netflix
+GROUP BY Netflix;
+
+
+--- Family friendly vs Adult shows ---
+SELECT Rating, COUNT(*) AS Show_Count
+FROM workspace.default.tv_shows_netflix
+GROUP BY Rating
+ORDER BY Show_Count DESC;
+
+
+--- Most recentky high rated shows on Netflix ---
+SELECT Titles, Year, IMDB_Rating
+FROM workspace.default.tv_shows_netflix
+WHERE Netflix = 1 AND IMDB_Rating >= 8.5
+ORDER BY Year DESC;
+
+
+--- IMDB Ratings above 9 ---
+SELECT Titles, Year, IMDB_Rating
+FROM workspace.default.tv_shows_netflix 
+WHERE IMDB_Rating >= 9;
+
+--- Average Rating by Decade --- 
+SELECT (Year/10)*10 AS Decade, AVG(IMDB_Rating) AS Avg_Rating
+FROM workspace.default.tv_shows_netflix
+GROUP BY (Year/10)*10
+ORDER BY Decade;
 
