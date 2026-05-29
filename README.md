@@ -1,5 +1,4 @@
-# Netflix-TV-Shows
-Here’s a clean GitHub-ready README.md without SQL code blocks, focusing on insights and usage:
+
 # 📺 Netflix TV Shows Dataset & Insights
 
 This repository contains a curated dataset of popular TV shows, including their release year, age rating, IMDb rating, and availability on Netflix.  
